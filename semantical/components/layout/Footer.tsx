@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 const Footer = () => {
-  const emojis = ['❤️', '🐶', '☕️', '❤️‍🩹', '🪵']
+  const emojis = ['❤️', '🐶', '☕️', '❤️‍🩹', '🤖']
   const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)]
   const currentYear = new Date().getFullYear()
   const copywrite = `© ${currentYear} Turner Monroe`
