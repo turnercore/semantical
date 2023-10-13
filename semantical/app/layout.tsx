@@ -39,9 +39,9 @@ export default function RootLayout({
             <Header />
             <div className="flex-1 mt-3 mb-3">{children}</div>
             <div className="background"></div>
-            <Footer />
-          </div>
           <Toaster />
+          </div>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
