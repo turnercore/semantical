@@ -5,19 +5,18 @@ import { cookies } from 'next/headers'
 import generateEmbeddings from './utils/generateEmbeddings'
 import containsMarkdownPatterns from './utils/containsMarkdownPatterns'
 import getTokenCount from './utils/getTokenCount'
+import { Database } from '@/types/supabase'
+
 
 
 const getTokenLimitByModel = (model: string) => {
   switch(model) {
     case 'openai/text-embedding-ada-002':
       return 8191
-      break
     default:
       return 0
-      break
   }
 }
-
 
 type KnowledgeData = {
   fileName: string
@@ -43,7 +42,7 @@ export async function POST(req: NextRequest) {
       knowledgebase,
       model,
     }: KnowledgeData = requestBody
-    const supabase = createRouteHandlerClient({ cookies })
+
     // Return a 200 status code with the fileId
     let message = `File ${fileName} (id: ${uuid}) added`
     if (knowledgebase) {
@@ -88,6 +87,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'No file or text provided' }, { status: 400 })
     }
 
+    // Add to supabase
+    //Initialize supabase
+    const supabase = createRouteHandlerClient<Database>({ cookies })
+    // Add document reference to 'documents' table adding: tags, knowledgebase, length (in words), tokens (length in tokens), name, description
+
+    // Upload document to storage bucket if saveOriginalFile is true
+
+    // Update document reference with storage bucket URL
+
+    // Upload each embedding to 'embeddings' table, referencing the document, tags, model, and the knowledgebase if provided
+
+    // Update the document reference with the embeddings id in an array
+  
+
     // Generate embeddings
     const {embedding, tokenUseage } = await generateEmbeddings(textContent, model)
     return NextResponse.json({ message, uuid, embedding, tokenUseage }, { status: 200 })
@@ -96,12 +109,8 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
-// ---Helper functions for the route handler---
-
 // process tags
 
-// Add to supabase
 
 
 const processTxt = async (textContent: string, model: string = 'openai/text-embedding-ada-002') => {
