@@ -48,3 +48,19 @@ export interface Profile {
   website: string;
   user_id: UUID;
 }
+
+interface ProcessMarkdownOptions {
+  overlap?: number;
+  tokenLimit?: number;
+  includeBreadcrumbs?: boolean;
+  removeDecorators?: boolean;
+  removeLinks?: boolean;
+  removeImages?: boolean;
+  removeCodeBlocks?: boolean;
+  removeBlockquotes?: boolean;
+  removeTables?: boolean;
+  removeLists?: boolean;
+  removeFootnotes?: boolean;
+  removeAbbreviations?: boolean;
+  removeEmojis?: boolean;
+}

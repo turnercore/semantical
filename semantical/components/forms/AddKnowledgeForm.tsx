@@ -22,7 +22,9 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  Button
+  Button,
+  useToast,
+  ToastAction
 } from '@/components/ui'
 
 const ALLOWED_FILE_TYPES = ['.txt', '.md']
@@ -44,6 +46,7 @@ const AddKnowledgeForm = () => {
   const [attachedFile, setAttachedFile] = useState<File | null>(null)
   const [hasFormBeenSubmitted, setHasFormBeenSubmitted] = useState<boolean>(false)
 
+  const { toast } = useToast()
 
   // Define the form
   const form = useForm<z.infer<typeof AddKnowledgeFormSchema>>({
@@ -59,13 +62,45 @@ const AddKnowledgeForm = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof AddKnowledgeFormSchema>) {
+  async function onSubmit(values: z.infer<typeof AddKnowledgeFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    
+
     //Show the footer
     setHasFormBeenSubmitted(true)
-    
+
+    //Set loading
+    //setIsLoading(true)
+
+    //Submit data to api endpoint at /api/v1/addKnowledge
+    const payload = { ...values }
+    const response = await fetch('/api/v1/addKnowledge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+
+    const data = await response.json() 
+
+    const serverMessage = data.message ? data.message : ''
+    const serverError = data.error ? data.error : ''
+
+    if (response.status === 200) {
+      // Success
+      toast({
+        title: 'Knowledge Added',
+        description: 'Your knowledge has been added to your knowledgebase. You can now search for it. ' + serverMessage,
+      })
+  } else {
+      // Error
+      toast({
+        variant: 'destructive',
+        title: 'Oh no! Something went wrong.',
+        description: 'There was an error adding your knowledge. ' + serverError,
+        action: <ToastAction altText="Try again"> Try again </ToastAction>,
+      })
+    }
+
     //Reset the form
     setAttachedFile(null)
     form.reset()
