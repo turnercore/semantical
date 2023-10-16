@@ -9,16 +9,19 @@ const openai = new OpenAI({
 })
 
 const generateEmbeddings = async (text: string, model: string = 'openai/text-embedding-ada-002')=> {
+  // split model into header and body
+  const modelHeader = model.split('/')[0]
+  const modelBody = model.split('/')[1]
   // Find out if the first part of the / route is openai 
-  if (model.split('/')[0] === 'openai') {
+  if (modelHeader === 'openai') {
     try {
       const result = await openai.embeddings.create({
-        "model": model,
+        "model": modelBody,
         "input": text
       })
-      const tokenUseage = result.usage.total_tokens
+      // const tokenUseage = result.usage.total_tokens
       const embedding = result.data[0].embedding
-      return { embedding, tokenUseage }
+      return embedding
     }
     catch (error) {
       console.error(error)
@@ -27,7 +30,7 @@ const generateEmbeddings = async (text: string, model: string = 'openai/text-emb
   //Handle other model cases here...
 
   //If no model is found, return an empty array
-  return { embedding: [], tokenUseage: 0 }
+  return []
 }
 
 export default generateEmbeddings

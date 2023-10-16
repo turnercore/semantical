@@ -39,11 +39,13 @@ import { ToastProps, ToastActionElement, ToastProvider, ToastViewport, Toast, To
 import { Toggle, toggleVariants } from './toggle'
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './tooltip'
 import { useToast, toast } from './use-toast'
+import { SignOutButton } from './sign-out-button'
 
 // manually added
 import { ModeToggle } from './mode-toggle'
 
 export {
+  SignOutButton,
   ModeToggle,
   Accordion,
   AccordionItem,

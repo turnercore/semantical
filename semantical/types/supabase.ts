@@ -9,6 +9,34 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      api_keys: {
+        Row: {
+          id: string
+          name: string | null
+          used_count: number
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          name?: string | null
+          used_count?: number
+          user_id?: string
+        }
+        Update: {
+          id?: string
+          name?: string | null
+          used_count?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_keys_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       documents: {
         Row: {
           created_at: string | null
@@ -68,7 +96,7 @@ export interface Database {
         Row: {
           created_at: string
           document_id: string
-          embedding: string
+          embedding: number[]
           id: string
           knowledgebase: string
           length: number
@@ -83,7 +111,7 @@ export interface Database {
         Insert: {
           created_at?: string
           document_id: string
-          embedding: string
+          embedding: number[]
           id?: string
           knowledgebase?: string
           length?: number
@@ -98,7 +126,7 @@ export interface Database {
         Update: {
           created_at?: string
           document_id?: string
-          embedding?: string
+          embedding?: number[]
           id?: string
           knowledgebase?: string
           length?: number

@@ -1,7 +1,6 @@
-import AddKnowledgeForm from '@/components/forms/AddKnowledgeForm'
 
 export default function Home() {
   return (
-    <AddKnowledgeForm />
+    <h1> Welcome to the unbuilt Home Page!</h1>
   )
 }

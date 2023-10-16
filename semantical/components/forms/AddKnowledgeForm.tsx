@@ -96,7 +96,7 @@ const AddKnowledgeForm = () => {
       toast({
         variant: 'destructive',
         title: 'Oh no! Something went wrong.',
-        description: 'There was an error adding your knowledge. ' + serverError,
+        description: 'There was an error adding your knowledge. ' + JSON.stringify(serverError),
         action: <ToastAction altText="Try again"> Try again </ToastAction>,
       })
     }
