@@ -5,11 +5,7 @@ import { Toast } from '@/components/ui'
 import { ThemeProvider } from "@/components/layout/theme-provider"
 
 import type { Metadata } from 'next'
-import { ToastProvider } from '@radix-ui/react-toast'
 import { Toaster } from '@/components/ui/toaster'
-
-export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs' // 'nodejs' (default) | 'edge'
  
 const url = process.env.NEXT_PUBLIC_DOMAIN || 'http://localhost:3000'
 
@@ -37,7 +33,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <div className="flex-1 mt-3 mb-3">{children}</div>
+            <div className="flex-1 mt-3 mb-3">
+              {children}
+            </div>
             <div className="background"></div>
           <Toaster />
           </div>
