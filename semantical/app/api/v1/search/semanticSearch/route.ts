@@ -63,7 +63,8 @@ export async function POST(req: NextRequest) {
       if (cachedResults) {
         console.log('Returning cached results')
         const topResults = cachedResults.slice(startIndex, endIndex)
-        return NextResponse.json({ topResults }, { status: 200 })
+        const totalResults = cachedResults.length
+        return NextResponse.json({ topResults, totalResults }, { status: 200 })
       }
     }
 
@@ -128,10 +129,11 @@ export async function POST(req: NextRequest) {
     // Take top results based on pagination
     console.log('Slicing results based on pagination')
     const topResults = sortedResults.slice(startIndex, endIndex)
+    const totalResults = sortedResults.length
 
     // Return results
     console.log('Returning results')
-    return NextResponse.json({ topResults }, { status: 200 })
+    return NextResponse.json({ topResults, totalResults }, { status: 200 })
 
   } catch (error) {
     console.log(`Caught an error: ${error}`)
