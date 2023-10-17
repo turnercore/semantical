@@ -1,5 +1,5 @@
 // euclideanDistance.test.ts
-import { euclideanDistance } from '@/tools/math/euclideanDistance'
+import { euclideanDistance } from './euclideanDistance'
 
 test('should calculate euclidean distance correctly', () => {
   expect(euclideanDistance([1, 0], [1, 0])).toBe(0)
